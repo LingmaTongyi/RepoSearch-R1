@@ -2,7 +2,7 @@
 
 **RepoSearch-R1** is a cold-start agentic reinforcement learning framework that enables large language models to efficiently navigate and extract information from complex code repositories through multi-turn tool interactions. Built on the verl framework, it integrates Monte Carlo Tree Search (MCTS) into the Group Relative Policy Optimization (GRPO) pipeline to generate diverse, high-quality reasoning trajectories via self-training without requiring model distillation or external supervision.
 
-This implementation is based on the research paper: **"RepoSearch-R1: A RepoQA-Agent based on Reinforcement Learning Driven by Monte-carlo Tree Search"** by Guochang Li, Yuchen Liu, et al.
+This implementation is based on the research paper: **"RepoSearch-R1: A RepoQA-Agent based on Reinforcement Learning Driven by Monte-carlo Tree Search"**
 
 ## Key Innovations
 
