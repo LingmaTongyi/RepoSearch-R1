@@ -1,0 +1,49 @@
+hydra:
+  searchpath:
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+data:
+  max_prompt_length: 7000
+  max_response_length: 16000
+  train_batch_size: 8
+  return_raw_chat: True
+  custom_cls:
+    path: /mnt/lgc/lgc/verl/examples/repoqa/repoqa_rl_dataset.py
+    name: RepoQARLHFDataset
+        
+
+actor_rollout_ref:
+  hybrid_engine: True
+  rollout:
+    name: vllm
+    multi_turn:
+      format: hermes
+      enable: True
+      max_assistant_turns: 10
+      max_user_turns: 20
+      max_parallel_calls: 64
+      traj_save_dir: /mnt/lgc/lgc/verl/trajectory_logs
+    agent:
+      num_workers: 8
+    mcts_agent:
+      enable: True
+      num_rollouts: 20
+      min_reward_accumulation: 2
+      max_depth_allowed: 10
+      max_children_num: 2
+      exploration_weight: 2.0
+      weight_scheduler: exp
+      try_times: 1
+      enable_reflection: False
+      traj_save_dir: /mnt/lgc/lgc/verl/mcts_traj_output
+    val_kwargs:
+      n: 1
+      temperature: 0.2
+trainer:
+  val_before_train: True
+reward_model:
+  reward_manager: agent

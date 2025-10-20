@@ -1,0 +1,111 @@
+tools:
+  - class_name: "verl.tools.repoqa_tool.SearchKeywordTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "search_keyword_in_folder"
+        description: "Search for a keyword in the folder and return file paths with the number of matches in each file."
+        parameters:
+          type: "object"
+          properties:
+            keyword:
+              type: "string"
+              description: "The keyword to search for."
+            folder_path:
+              type: "string"
+              description: "The absolute path to the folder to search in."
+          required: ["keyword", "folder_path"]
+
+  - class_name: "verl.tools.repoqa_tool.SearchFileTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "search_file_in_folder"
+        description: "Search the file within the folder scope. You need to provide the complete and exactly file name with suffix for searching like 'test_metric.cpp', 'setup.py'..."
+        parameters:
+          type: "object"
+          properties:
+            file_name:
+              type: "string"
+              description: "The file name to search for."
+            folder_path:
+              type: "string"
+              description: "The absolute path to the folder to search in."
+          required: ["file_name", "folder_path"]
+
+  - class_name: "verl.tools.repoqa_tool.ListFilesTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "list_files_in_folder"
+        description: "List all files within the folder."
+        parameters:
+          type: "object"
+          properties:
+            folder_path:
+              type: "string"
+              description: "The absolute path of the folder to list files."
+          required: ["folder_path"]
+
+  - class_name: "verl.tools.repoqa_tool.ReviewFileTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "review_file"
+        description: "View the file content between [start_lineno] and [end_lineno] in file. Each call can browse up to 100 lines of content. file_path is the absolute path of the file. Do not use this tool to find the code line by line! it is very inefficient. Not recommended if you do not know the exact location of the target code and the absolute file path!"
+        parameters:
+          type: "object"
+          properties:
+            file_path:
+              type: "string"
+              description: "The absolute path of the file to review."
+            start_lineno:
+              type: "number"
+              description: "The starting line number to review."
+            end_lineno:
+              type: "number"
+              description: "The ending line number to review."
+          required: ["file_path", "start_lineno", "end_lineno"]
+
+  - class_name: "verl.tools.repoqa_tool.SearchSymbolTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "search_symbol_in_file"
+        description: "Search the specified symbol in the file. Not recommended if you do not know the exact location of the symbol. Notice this tool searches symbol in files instead of folders."
+        parameters:
+          type: "object"
+          properties:
+            symbol:
+              type: "string"
+              description: "The symbol to search for."
+            file_path:
+              type: "string"
+              description: "The absolute path of the file to search in."
+          required: ["symbol", "file_path"]
+
+  - class_name: "verl.tools.repoqa_tool.SubmitAnswerTool"
+    config: 
+      type: native
+    tool_schema:
+      type: "function"
+      function:
+        name: "submit_answer"
+        description: "When the conversation already included enough code snippets that you could answer the query perfectly, submit the answer to the environment."
+        parameters:
+          type: "object"
+          properties:
+            answer:
+              type: "string"
+              description: "The answer to be submitted to the environment."
+          required: ["answer"]
